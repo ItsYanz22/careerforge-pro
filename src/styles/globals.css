@@ -1,0 +1,1210 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   COMPREHENSIVE SEMANTIC COLOR SYSTEM
+   
+   All color utilities use CSS variables to respect theme selection.
+   NO HARDCODED COLORS should appear in component files.
+   
+   Usage:
+   - Replace: bg-emerald-600 → bg-primary
+   - Replace: text-amber-500 → text-accent
+   - Replace: border-zinc-300 → border-border
+   - Replace: from-emerald-600 → from-[gradient-var]
+───────────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ──── Light Mode Surfaces ────────────────────────────────────────────────── */
+  --background:              0 0% 98%;
+  --background-secondary:    240 5% 96%;
+  --surface:                 0 0% 100%;
+  --surface-hover:           240 5% 98%;
+  --card:                    0 0% 100%;
+  --card-hover:              240 5% 98%;
+  --card-foreground:         240 10% 6%;
+  --popover:                 0 0% 100%;
+  --popover-foreground:      240 10% 6%;
+
+  /* ──── Surface Variants ───────────────────────────────────────────────────── */
+  --border:                  240 6% 90%;
+  --border-strong:           240 6% 80%;
+  --foreground:              240 10% 6%;
+  --foreground-muted:        240 4% 46%;
+  --muted:                   240 5% 94%;
+  --muted-foreground:        240 4% 46%;
+  
+  /* ──── Status Colors (Fixed, Not Theme-Dependent) ──────────────────────────── */
+  --success:                 142 71% 45%;
+  --success-light:           142 71% 85%;
+  --warning:                 38 92% 50%;
+  --warning-light:           38 92% 88%;
+  --error:                   0 84% 60%;
+  --error-light:             0 84% 90%;
+  --info:                    217 91% 60%;
+  --info-light:              217 91% 90%;
+
+  /* ──── Semantic Theme Tokens (Set dynamically by theme engine) ──────────────
+     Default values below (Emerald). Overridden by ThemeProvider.
+  ──────────────────────────────────────────────────────────────────────────── */
+  --primary:                 152 69% 31%;
+  --primary-foreground:      0 0% 100%;
+  --primary-light:           152 69% 71%;
+  --primary-lighter:         152 69% 85%;
+  --primary-muted:           152 40% 94%;
+  
+  --secondary:               240 5% 96%;
+  --secondary-foreground:    240 6% 10%;
+  
+  --accent:                  152 40% 94%;
+  --accent-foreground:       152 69% 31%;
+  --accent-strong:           152 69% 31%;
+  
+  --gradient-start:          152 69% 31%;
+  --gradient-middle:         152 69% 41%;
+  --gradient-end:            152 69% 66%;
+  --gradient-light-start:    152 69% 71%;
+  --gradient-light-end:      152 69% 85%;
+  
+  --glow-color:              152 69% 31% / 0.2;
+  --shadow-color:            0 0% 0% / 0.05;
+  --ring-color:              152 69% 31%;
+  --ring-color-light:        152 69% 31% / 0.1;
+
+  /* ──── Border & Radius ────────────────────────────────────────────────────── */
+  --radius:                  1rem;
+  --radius-sm:               0.75rem;
+  --radius-lg:               1.5rem;
+
+  /* ──── Shadows ───────────────────────────────────────────────────────────── */
+  --shadow-xs:               0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm:               0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md:               0 4px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg:               0 10px 15px rgba(0, 0, 0, 0.06), 0 4px 6px rgba(0, 0, 0, 0.04);
+  --shadow-xl:               0 20px 25px rgba(0, 0, 0, 0.08), 0 8px 10px rgba(0, 0, 0, 0.04);
+  --shadow-card:             0 0 0 1px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-soft:             0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-accent:           0 4px 14px var(--glow-color);
+  --shadow-accent-lg:        0 8px 24px var(--glow-color);
+
+  /* ──── Gradients ────────────────────────────────────────────────────────── */
+  --gradient-primary:        linear-gradient(135deg, hsl(var(--gradient-start)) 0%, hsl(var(--gradient-end)) 100%);
+  --gradient-hero:           linear-gradient(135deg, hsl(var(--gradient-start)), hsl(var(--gradient-middle)), hsl(var(--gradient-end)));
+  --gradient-subtle:         linear-gradient(135deg, hsl(var(--primary) / 0.06) 0%, hsl(var(--gradient-end) / 0.06) 100%);
+  --gradient-secondary:      linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--muted)) 100%);
+  --gradient-light:          linear-gradient(135deg, hsl(var(--primary-light)) 0%, hsl(var(--primary-lighter)) 100%);
+
+  /* ──── Destructive ──────────────────────────────────────────────────────────── */
+  --destructive:             0 84% 60%;
+  --destructive-foreground:  0 0% 98%;
+  --destructive-light:       0 84% 90%;
+  --destructive-muted:       0 84% 95%;
+
+  /* ──── Input ────────────────────────────────────────────────────────────────── */
+  --input:                   240 6% 90%;
+  --input-focus:             240 6% 85%;
+
+  /* ──── BUTTON SEMANTIC TOKENS (Contrast-Safe) ──────────────────────────────── */
+  --btn-primary-bg:          var(--primary);
+  --btn-primary-text:        var(--primary-foreground);
+  --btn-primary-hover-bg:    hsl(var(--primary) / 0.88);
+  --btn-primary-active-bg:   hsl(var(--primary) / 0.76);
+
+  --btn-secondary-bg:        var(--secondary);
+  --btn-secondary-text:      var(--secondary-foreground);
+  --btn-secondary-hover-bg:  hsl(var(--secondary) / 0.7);
+  --btn-secondary-active-bg: hsl(var(--secondary) / 0.5);
+
+  --btn-ghost-bg:            transparent;
+  --btn-ghost-text:          var(--foreground);
+  --btn-ghost-border:        hsl(var(--border));
+  --btn-ghost-hover-bg:      hsl(var(--secondary) / 0.6);
+  --btn-ghost-active-bg:     hsl(var(--secondary) / 0.4);
+
+  --btn-muted-bg:            hsl(var(--muted));
+  --btn-muted-text:          hsl(var(--muted-foreground));
+  --btn-muted-hover-bg:      hsl(var(--muted) / 0.7);
+
+  --btn-danger-bg:           var(--destructive);
+  --btn-danger-text:         var(--destructive-foreground);
+  --btn-danger-hover-bg:     hsl(var(--destructive) / 0.9);
+
+  /* ──── CONTRAST TEXT (Automatically switches based on luminance) ──────────── */
+  --text-on-primary:         0 0% 100%;
+  --text-on-secondary:       240 10% 6%;
+  --text-on-muted:           240 4% 46%;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   DARK MODE - Surface Colors Inverted with Enhanced Contrast
+───────────────────────────────────────────────────────────────────────────────── */
+.dark {
+  /* ──── Dark Mode Surfaces ────────────────────────────────────────────────── */
+  --background:              240 6% 8%;
+  --background-secondary:    240 4% 12%;
+  --surface:                 240 5% 11%;
+  --surface-hover:           240 5% 14%;
+  --card:                    240 5% 11%;
+  --card-hover:              240 5% 14%;
+  --card-foreground:         0 0% 95%;
+  --popover:                 240 5% 11%;
+  --popover-foreground:      0 0% 95%;
+
+  /* ──── Dark Mode Borders & Muted ────────────────────────────────────────── */
+  --border:                  240 4% 18%;
+  --border-strong:           240 4% 28%;
+  --foreground:              0 0% 96%;
+  --foreground-muted:        240 5% 68%;
+  --muted:                   240 4% 16%;
+  --muted-foreground:        240 5% 68%;
+
+  /* ──── Dark Mode Status Colors ───────────────────────────────────────────── */
+  --success:                 142 71% 60%;
+  --success-light:           142 71% 35%;
+  --warning:                 38 92% 65%;
+  --warning-light:           38 92% 25%;
+  --error:                   0 84% 65%;
+  --error-light:             0 84% 30%;
+  --info:                    217 91% 70%;
+  --info-light:              217 91% 35%;
+
+  --destructive:             0 84% 65%;
+  --destructive-foreground:  0 0% 8%;
+  --destructive-light:       0 84% 35%;
+  --destructive-muted:       0 84% 20%;
+
+  /* ──── Dark Mode Input ──────────────────────────────────────────────────── */
+  --input:                   240 4% 18%;
+  --input-focus:             240 4% 25%;
+
+  /* ──── Dark Mode Primary Palette (Lighter for contrast) ────────────────── */
+  --primary-light:           152 69% 55%;
+  --primary-lighter:         152 69% 68%;
+
+  /* ──── Dark Mode Shadows & Glows ──────────────────────────────────────── */
+  --glow-color:              152 69% 55% / 0.2;
+  --shadow-color:            0 0% 0% / 0.4;
+  --ring-color-light:        152 69% 55% / 0.25;
+
+  --shadow-card:             0 0 0 1px rgba(255, 255, 255, 0.06), 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-accent:           0 4px 14px hsl(var(--primary) / 0.3);
+  --shadow-accent-lg:        0 8px 24px hsl(var(--primary) / 0.35);
+
+  /* ──── DARK MODE BUTTON TOKENS (High Contrast) ──────────────────────────── */
+  --btn-primary-bg:          152 69% 55%;
+  --btn-primary-text:        240 5% 7%;
+  --btn-primary-hover-bg:    152 69% 65%;
+  --btn-primary-active-bg:   152 69% 48%;
+
+  --btn-secondary-bg:        240 4% 22%;
+  --btn-secondary-text:      0 0% 96%;
+  --btn-secondary-hover-bg:  240 4% 32%;
+  --btn-secondary-active-bg: 240 4% 42%;
+
+  --btn-ghost-bg:            transparent;
+  --btn-ghost-text:          0 0% 96%;
+  --btn-ghost-border:        240 4% 28%;
+  --btn-ghost-hover-bg:      240 4% 25%;
+  --btn-ghost-active-bg:     240 4% 30%;
+
+  --btn-muted-bg:            240 4% 20%;
+  --btn-muted-text:          240 5% 72%;
+  --btn-muted-hover-bg:      240 4% 28%;
+
+  --btn-danger-bg:           0 84% 65%;
+  --btn-danger-text:         240 5% 7%;
+  --btn-danger-hover-bg:     0 84% 72%;
+
+  /* ──── CONTRAST TEXT (Dark Mode) ────────────────────────────────────────── */
+  --text-on-primary:         240 5% 7%;
+  --text-on-secondary:       0 0% 96%;
+  --text-on-muted:           240 5% 72%;
+}
+
+/* ── Base Layer ────────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    font-size: 16px;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'cv02','cv03','cv04','cv11';
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: hsl(var(--foreground));
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+
+  p, span, li, label {
+    color: inherit;
+  }
+
+  input, textarea, select {
+    background-color: hsl(var(--input));
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-sm);
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+    font-family: inherit;
+    transition: border-color 150ms, box-shadow 150ms, background-color 150ms;
+  }
+
+  input::placeholder, textarea::placeholder, select::placeholder {
+    color: hsl(var(--muted-foreground));
+    opacity: 0.9;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 3px hsl(var(--ring-color-light));
+  }
+
+  input:disabled, textarea:disabled, select:disabled {
+    background-color: hsl(var(--muted));
+    color: hsl(var(--muted-foreground));
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343e4d' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    padding-right: 2.5rem;
+  }
+
+  .dark select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23f5f5f5' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  }
+
+  a {
+    color: hsl(var(--primary));
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: hsl(var(--primary-light));
+  }
+
+  button:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
+}
+
+/* ── Component Layer ───────────────────────────────────────────────────────── */
+@layer components {
+  /* ──── Card Components ────────────────────────────────────────────────────── */
+  .card {
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    transition: all 200ms ease-out;
+  }
+
+  .dark .card {
+    background-color: hsl(240 5% 13%);
+    border-color: hsl(240 4% 22%);
+  }
+
+  .card-elevated {
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .dark .card-elevated {
+    background-color: hsl(240 5% 13%);
+    border-color: hsl(240 4% 22%);
+  }
+
+  .card-primary {
+    background: hsl(var(--primary) / 0.08);
+    border: 1px solid hsl(var(--primary) / 0.2);
+    border-radius: var(--radius);
+  }
+
+  .dark .card-primary {
+    background: hsl(var(--primary) / 0.12);
+    border-color: hsl(var(--primary) / 0.3);
+  }
+
+  .card-accent {
+    background: hsl(var(--accent));
+    border: 1px solid hsl(var(--primary) / 0.1);
+    border-radius: var(--radius);
+  }
+
+  .dark .card-accent {
+    background: hsl(var(--accent) / 0.15);
+    border-color: hsl(var(--primary) / 0.25);
+  }
+
+  .card-success {
+    background: hsl(var(--success-light));
+    border: 1px solid hsl(var(--success) / 0.2);
+    border-radius: var(--radius);
+  }
+
+  .dark .card-success {
+    background: hsl(142 71% 30%);
+    border-color: hsl(142 71% 50% / 0.3);
+  }
+
+  .card-warning {
+    background: hsl(var(--warning-light));
+    border: 1px solid hsl(var(--warning) / 0.3);
+    border-radius: var(--radius);
+  }
+
+  .dark .card-warning {
+    background: hsl(38 92% 25%);
+    border-color: hsl(38 92% 65% / 0.3);
+  }
+
+  .card-error {
+    background: hsl(var(--error-light));
+    border: 1px solid hsl(var(--error) / 0.3);
+    border-radius: var(--radius);
+  }
+
+  .dark .card-error {
+    background: hsl(0 84% 30%);
+    border-color: hsl(0 84% 65% / 0.3);
+  }
+
+  /* ──── Button Components ────────────────────────────────────────────────── */
+  .btn-primary {
+    background-color: hsl(var(--btn-primary-bg));
+    color: hsl(var(--btn-primary-text));
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.625rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 150ms ease-out;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background-color: hsl(var(--btn-primary-hover-bg));
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-accent);
+  }
+
+  .btn-primary:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-secondary {
+    background-color: hsl(var(--btn-secondary-bg));
+    color: hsl(var(--btn-secondary-text));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-sm);
+    padding: 0.625rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 150ms ease-out;
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background-color: hsl(var(--btn-secondary-hover-bg));
+    border-color: hsl(var(--border-strong));
+  }
+
+  .btn-secondary:active:not(:disabled) {
+    background-color: hsl(var(--btn-secondary-active-bg));
+  }
+
+  .btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-ghost {
+    background-color: transparent;
+    color: hsl(var(--btn-ghost-text));
+    border: 1px solid hsl(var(--btn-ghost-border));
+    border-radius: var(--radius-sm);
+    padding: 0.625rem 1rem;
+    cursor: pointer;
+    transition: all 150ms ease-out;
+  }
+
+  .btn-ghost:hover:not(:disabled) {
+    background-color: hsl(var(--btn-ghost-hover-bg));
+    border-color: hsl(var(--border-strong));
+  }
+
+  .btn-ghost:active:not(:disabled) {
+    background-color: hsl(var(--btn-ghost-active-bg));
+  }
+
+  .btn-ghost:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-destructive {
+    background-color: hsl(var(--btn-danger-bg));
+    color: hsl(var(--btn-danger-text));
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.625rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 150ms ease-out;
+  }
+
+  .btn-destructive:hover:not(:disabled) {
+    background-color: hsl(var(--btn-danger-hover-bg));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsl(var(--destructive) / 0.3);
+  }
+
+  .btn-destructive:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-success {
+    background-color: hsl(var(--success));
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.625rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 150ms ease-out;
+  }
+
+  .btn-success:hover:not(:disabled) {
+    background-color: hsl(var(--success) / 0.9);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsl(var(--success) / 0.3);
+  }
+
+  .btn-success:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* ──── Input Components ────────────────────────────────────────────────────── */
+  .input-base {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+    background-color: hsl(var(--input));
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-sm);
+    outline: none;
+    transition: border-color 150ms, box-shadow 150ms, background-color 150ms;
+  }
+
+  .input-base:focus {
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 3px hsl(var(--ring-color-light));
+  }
+
+  .input-base:disabled {
+    background-color: hsl(var(--muted));
+    color: hsl(var(--muted-foreground));
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
+
+  .input-base::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .input-error {
+    border-color: hsl(var(--error));
+  }
+
+  .input-error:focus {
+    box-shadow: 0 0 0 3px hsl(var(--error) / 0.1);
+  }
+
+  .input-success {
+    border-color: hsl(var(--success));
+  }
+
+  .input-success:focus {
+    box-shadow: 0 0 0 3px hsl(var(--success) / 0.1);
+  }
+
+  /* ──── Badge Components ────────────────────────────────────────────────────── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 9999px;
+  }
+
+  .badge-primary {
+    background-color: hsl(var(--primary) / 0.15);
+    color: hsl(var(--primary));
+    border: 1px solid hsl(var(--primary) / 0.3);
+  }
+
+  .badge-success {
+    background-color: hsl(var(--success) / 0.15);
+    color: hsl(var(--success));
+    border: 1px solid hsl(var(--success) / 0.3);
+  }
+
+  .badge-warning {
+    background-color: hsl(var(--warning) / 0.15);
+    color: hsl(var(--warning));
+    border: 1px solid hsl(var(--warning) / 0.3);
+  }
+
+  .badge-error {
+    background-color: hsl(var(--error) / 0.15);
+    color: hsl(var(--error));
+    border: 1px solid hsl(var(--error) / 0.3);
+  }
+
+  .badge-secondary {
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
+  }
+
+  /* ──── Surface Components ────────────────────────────────────────────────── */
+  .surface-base {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  .surface-card {
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+  }
+
+  .surface-muted {
+    background-color: hsl(var(--muted));
+    color: hsl(var(--muted-foreground));
+  }
+
+  .surface-primary {
+    background-color: hsl(var(--primary) / 0.1);
+    color: hsl(var(--primary));
+  }
+
+  .surface-success {
+    background-color: hsl(var(--success) / 0.1);
+    color: hsl(var(--success));
+  }
+
+  .surface-warning {
+    background-color: hsl(var(--warning) / 0.1);
+    color: hsl(var(--warning));
+  }
+
+  .surface-error {
+    background-color: hsl(var(--error) / 0.1);
+    color: hsl(var(--error));
+  }
+
+  /* ──── Border Components ────────────────────────────────────────────────── */
+  .border-primary {
+    border-color: hsl(var(--primary));
+  }
+
+  .border-success {
+    border-color: hsl(var(--success));
+  }
+
+  .border-warning {
+    border-color: hsl(var(--warning));
+  }
+
+  .border-error {
+    border-color: hsl(var(--error));
+  }
+
+  .border-muted {
+    border-color: hsl(var(--muted-foreground) / 0.3);
+  }
+
+  /* ──── Text Color Components ────────────────────────────────────────────── */
+  .text-primary {
+    color: hsl(var(--primary));
+  }
+
+  .text-primary-light {
+    color: hsl(var(--primary-light));
+  }
+
+  .text-success {
+    color: hsl(var(--success));
+  }
+
+  .text-warning {
+    color: hsl(var(--warning));
+  }
+
+  .text-error {
+    color: hsl(var(--error));
+  }
+
+  .text-muted {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .text-accent {
+    color: hsl(var(--accent-foreground));
+  }
+
+  /* ──── Gradient Components ────────────────────────────────────────────── */
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-subtle {
+    background: var(--gradient-subtle);
+  }
+
+  .gradient-light {
+    background: var(--gradient-light);
+  }
+
+  .gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+
+  /* ──── Glass Effect ────────────────────────────────────────────────────── */
+  .glass {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .dark .glass {
+    background: rgba(17, 17, 23, 0.72);
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  /* ──── Header/Sidebar Styles ────────────────────────────────────────────── */
+  .sidebar-primary {
+    background-color: hsl(var(--card));
+    border-right: 1px solid hsl(var(--border));
+  }
+
+  .navbar-primary {
+    background-color: hsl(var(--card));
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  .nav-item-active {
+    background-color: hsl(var(--primary) / 0.1);
+    color: hsl(var(--primary));
+    border-left: 3px solid hsl(var(--primary));
+  }
+
+  .nav-item-hover {
+    background-color: hsl(var(--muted));
+    transition: background-color 150ms ease-out;
+  }
+
+  /* ──── Modal/Dialog Styles ────────────────────────────────────────────────── */
+  .modal-overlay {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-content {
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .modal-header {
+    background-color: hsl(var(--card));
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  .modal-footer {
+    background-color: hsl(var(--background-secondary));
+    border-top: 1px solid hsl(var(--border));
+  }
+}
+
+/* ── Utility Layer ─────────────────────────────────────────────────────────── */
+@layer utilities {
+  /* ──── Shadow Utilities ────────────────────────────────────────────────────── */
+  .shadow-xs { box-shadow: var(--shadow-xs); }
+  .shadow-sm { box-shadow: var(--shadow-sm); }
+  .shadow-md { box-shadow: var(--shadow-md); }
+  .shadow-lg { box-shadow: var(--shadow-lg); }
+  .shadow-xl { box-shadow: var(--shadow-xl); }
+  .shadow-card { box-shadow: var(--shadow-card); }
+  .shadow-accent { box-shadow: var(--shadow-accent); }
+  .shadow-accent-lg { box-shadow: var(--shadow-accent-lg); }
+
+  /* ──── Transition Utilities ────────────────────────────────────────────── */
+  .transition-subtle { transition: all 150ms ease-out; }
+  .transition-smooth { transition: all 200ms ease-in-out; }
+  .transition-fast { transition: all 100ms ease-out; }
+  .transition-slow { transition: all 300ms ease-in-out; }
+
+  /* ──── Hover Effects ────────────────────────────────────────────────────── */
+  .hover-lift {
+    transition: all 200ms ease-out;
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .hover-scale {
+    transition: transform 200ms ease-out;
+  }
+  .hover-scale:hover {
+    transform: scale(1.02);
+  }
+
+  .hover-glow {
+    transition: all 200ms ease-out;
+  }
+  .hover-glow:hover {
+    box-shadow: var(--shadow-accent);
+  }
+
+  /* ──── Focus Ring ──────────────────────────────────────────────────────── */
+  .ring-focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  .ring-focus:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
+
+  /* ──── Premium Card Hover States ────────────────────────────────────── */
+  .card-hover {
+    transition: all 200ms ease-out;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-accent-lg);
+    border-color: hsl(var(--primary) / 0.3);
+  }
+
+  /* ──── Premium Button Hover States ─────────────────────────────────── */
+  .btn-hover {
+    transition: all 150ms ease-out;
+  }
+  .btn-hover:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-accent);
+  }
+  .btn-hover:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* ──── Animation Utilities ─────────────────────────────────────────────── */
+  .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+  .animate-fade-in-slow { animation: fadeIn 0.5s ease-out forwards; }
+  .animate-slide-up { animation: slideUp 0.3s ease-out forwards; }
+  .animate-slide-down { animation: slideDown 0.3s ease-out forwards; }
+  .animate-slide-in-left { animation: slideInLeft 0.4s ease-out forwards; }
+  .animate-slide-in-right { animation: slideInRight 0.4s ease-out forwards; }
+  .animate-scale-in { animation: scaleIn 0.3s ease-out forwards; }
+  .animate-bounce-in { animation: bounceIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+  .animate-pulse-soft { animation: pulseSoft 2s ease-in-out infinite; }
+  .animate-shimmer { animation: shimmer 3s ease-in-out infinite; }
+
+  /* ──── Page Transitions ────────────────────────────────────────────────── */
+  .page-fade-in {
+    animation: fadeIn 0.4s ease-out;
+  }
+
+  .page-slide-up {
+    animation: slideUp 0.4s ease-out;
+  }
+
+  /* ──── Glow Effect ────────────────────────────────────────────────────── */
+  .glow-primary {
+    position: relative;
+  }
+  .glow-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(ellipse 100% 100% at 50% 0%, hsl(var(--primary) / 0.15), transparent);
+    pointer-events: none;
+  }
+
+  /* ──── Backdrop Utilities ──────────────────────────────────────────────── */
+  .backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .backdrop-blur-md {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* ──── Text Utilities ──────────────────────────────────────────────────── */
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+
+  /* ──── Gradient Text ────────────────────────────────────────────────────── */
+  .bg-clip-text {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gradient-text {
+    background: var(--gradient-primary);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ──── Animation Delays ────────────────────────────────────────────────── */
+  .animation-delay-100 { animation-delay: 100ms; }
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-300 { animation-delay: 300ms; }
+  .animation-delay-500 { animation-delay: 500ms; }
+}
+
+/* ── Keyframe Animations ─────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulseSoft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   RESUME PREVIEW ISOLATION
+   
+   .resume-preview-container applies a contained CSS class scope to prevent
+   theme colors from affecting the isolated print view. This ensures consistent
+   resume appearance regardless of selected theme.
+────────────────────────────────────────────────────────────────────────────── */
+.resume-preview-container {
+  /* Isolated preview mode - uses emerald defaults */
+  --primary: 152 69% 31%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 152 40% 94%;
+  --accent-foreground: 152 69% 31%;
+  --gradient-start: 152 69% 31%;
+  --gradient-middle: 152 69% 41%;
+  --gradient-end: 152 69% 66%;
+}
+
+@media print {
+  .resume-preview-container {
+    --preview-scale: 1 !important;
+    transform: none !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+  }
+  
+  body {
+    background-color: white !important;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   TOAST NOTIFICATIONS
+   
+   Styled for proper visibility in both light and dark modes with theme-aware colors.
+────────────────────────────────────────────────────────────────────────────── */
+
+/* Main toast container */
+.react-hot-toast-container {
+  z-index: 1000;
+}
+
+/* Toast base styles */
+div[role="status"] {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  border: 1px solid hsl(var(--border, 0 0% 90%));
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.16);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 1rem 1.25rem;
+}
+
+.dark div[role="status"] {
+  background-color: hsl(var(--card));
+  border-color: hsl(var(--border, 240 5% 25%));
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Success toast */
+.react-hot-toast:has(svg.text-green-500),
+div[role="status"]:has(svg.text-green-600) {
+  border-color: hsl(var(--success));
+  background-color: hsl(var(--success) / 0.05);
+  color: hsl(var(--success));
+}
+
+.dark div[role="status"]:has(svg.text-green-600) {
+  background-color: hsl(var(--success) / 0.1);
+  border-color: hsl(var(--success) / 0.4);
+}
+
+/* Error toast */
+.react-hot-toast:has(svg.text-red-500),
+div[role="status"]:has(svg.text-red-600) {
+  border-color: hsl(var(--error));
+  background-color: hsl(var(--error) / 0.05);
+  color: hsl(var(--error));
+}
+
+.dark div[role="status"]:has(svg.text-red-600) {
+  background-color: hsl(var(--error) / 0.1);
+  border-color: hsl(var(--error) / 0.4);
+}
+
+/* Warning toast */
+.react-hot-toast:has(svg.text-yellow-500),
+div[role="status"]:has(svg.text-amber-600) {
+  border-color: hsl(var(--warning));
+  background-color: hsl(var(--warning) / 0.05);
+  color: hsl(var(--warning));
+}
+
+.dark div[role="status"]:has(svg.text-amber-600) {
+  background-color: hsl(var(--warning) / 0.1);
+  border-color: hsl(var(--warning) / 0.4);
+}
+
+/* Info toast */
+.react-hot-toast:has(svg.text-blue-500),
+div[role="status"]:has(svg.text-blue-600) {
+  border-color: hsl(var(--info));
+  background-color: hsl(var(--info) / 0.05);
+  color: hsl(var(--info));
+}
+
+.dark div[role="status"]:has(svg.text-blue-600) {
+  background-color: hsl(var(--info) / 0.1);
+  border-color: hsl(var(--info) / 0.4);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   SEMANTIC COLOR UTILITIES
+   
+   Utility classes for common semantic color patterns that work across all themes.
+   These use CSS variables for dynamic theme switching.
+────────────────────────────────────────────────────────────────────────────── */
+
+/* Text utilities with theme awareness */
+.text-semantic-primary {
+  @apply text-[hsl(var(--primary))];
+}
+
+.text-semantic-success {
+  @apply text-[hsl(var(--success))];
+}
+
+.text-semantic-warning {
+  @apply text-[hsl(var(--warning))];
+}
+
+.text-semantic-error {
+  @apply text-[hsl(var(--error))];
+}
+
+.text-semantic-info {
+  @apply text-[hsl(var(--info))];
+}
+
+/* Background utilities with theme awareness */
+.bg-semantic-primary-light {
+  @apply bg-[hsl(var(--primary)_/_0.1)] dark:bg-[hsl(var(--primary)_/_0.12)];
+}
+
+.bg-semantic-success-light {
+  @apply bg-[hsl(var(--success)_/_0.1)] dark:bg-[hsl(var(--success)_/_0.12)];
+}
+
+.bg-semantic-warning-light {
+  @apply bg-[hsl(var(--warning)_/_0.1)] dark:bg-[hsl(var(--warning)_/_0.12)];
+}
+
+.bg-semantic-error-light {
+  @apply bg-[hsl(var(--error)_/_0.1)] dark:bg-[hsl(var(--error)_/_0.12)];
+}
+
+.bg-semantic-info-light {
+  @apply bg-[hsl(var(--info)_/_0.1)] dark:bg-[hsl(var(--info)_/_0.12)];
+}
+
+/* Border utilities with theme awareness */
+.border-semantic-primary {
+  @apply border-[hsl(var(--primary)_/_0.3)];
+}
+
+.border-semantic-success {
+  @apply border-[hsl(var(--success)_/_0.3)];
+}
+
+.border-semantic-warning {
+  @apply border-[hsl(var(--warning)_/_0.3)];
+}
+
+.border-semantic-error {
+  @apply border-[hsl(var(--error)_/_0.3)];
+}
+
+.border-semantic-info {
+  @apply border-[hsl(var(--info)_/_0.3)];
+}
