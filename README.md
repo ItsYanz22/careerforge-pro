@@ -275,6 +275,27 @@ This project is being developed as part of an AI-first SaaS internship project f
 * Modern Frontend Architecture
 
 ---
+# 📅 Development Timeline
+
+### Week 1
+- Resume Builder Core
+- Live Preview System
+- Resume Schema Design
+
+### Week 2
+- ATS Score Checker
+- JD Keyword Extraction
+- AI Resume Optimization
+
+### Week 3
+- PDF/DOCX Export System
+- Resume Template Enhancements
+- SaaS Payment Planning
+
+### Week 4
+- Cover Letter Generator
+- Dashboard Improvements
+- Future SaaS Roadmap Planning
 
 # 🤝 Contributors
 
