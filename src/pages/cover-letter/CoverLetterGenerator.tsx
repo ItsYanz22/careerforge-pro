@@ -3,7 +3,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { useResumeStore } from '../../stores/resumeStore'
 import { useAuthStore } from '../../stores/authStore'
 import { coverLetterApi } from '../../api/coverLetter.api'
-import { FileText, Loader, Sparkles, Copy, Check, Lock, Crown, Upload, X } from 'lucide-react'
+import { FileText, Loader, Sparkles, Copy, Check, Lock, Crown, Upload, X, Download } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { motion } from 'framer-motion'
 import { UpgradeModal } from '../../components/premium/PremiumUI'
@@ -29,8 +29,10 @@ export default function CoverLetterGenerator() {
   const [tone, setTone] = useState('professional')
   const [isGenerating, setIsGenerating] = useState(false)
   const [generatedLetter, setGeneratedLetter] = useState('')
+  const [generatedLetterId, setGeneratedLetterId] = useState<string | null>(null)
   const [savedLetters, setSavedLetters] = useState<SavedCoverLetter[]>([])
   const [copied, setCopied] = useState(false)
+  const [isExporting, setIsExporting] = useState(false)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
 
   useEffect(() => {
@@ -113,6 +115,7 @@ export default function CoverLetterGenerator() {
 
       const content = result?.content ?? ''
       setGeneratedLetter(content)
+      setGeneratedLetterId(result?._id ?? null)
       toast.success('Cover letter generated and saved!', { id: toastId })
       loadSavedLetters()
     } catch (error: any) {
@@ -148,8 +151,44 @@ export default function CoverLetterGenerator() {
     setTimeout(() => setCopied(false), 2000)
   }
 
+  const handleExport = async () => {
+    if (!generatedLetterId) {
+      toast.error('No cover letter to export. Please generate one first.')
+      return
+    }
+
+    setIsExporting(true)
+    try {
+      const blob = await coverLetterApi.exportPdf(generatedLetterId)
+      
+      // Create a download link
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `cover-letter-${Date.now()}.pdf`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(url)
+      
+      toast.success('Cover letter exported as PDF!')
+    } catch (error: any) {
+      console.error('Export error:', error)
+      let errorMsg = 'Failed to export cover letter'
+      if (error?.status === 403) {
+        errorMsg = 'You need Pro access to export cover letters'
+      } else if (error?.message) {
+        errorMsg = error.message
+      }
+      toast.error(errorMsg)
+    } finally {
+      setIsExporting(false)
+    }
+  }
+
   const handleLoadSaved = (letter: SavedCoverLetter) => {
     setGeneratedLetter(letter.content)
+    setGeneratedLetterId(letter._id)
   }
 
   return (
@@ -369,6 +408,14 @@ export default function CoverLetterGenerator() {
                 >
                   {copied ? <Check size={14} /> : <Copy size={14} />}
                   {copied ? 'Copied' : 'Copy'}
+                </button>
+                <button
+                  onClick={handleExport}
+                  disabled={isExporting}
+                  className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-primary-600 dark:hover:text-primary-400 transition-colors px-2.5 py-1.5 bg-secondary dark:bg-card rounded-lg border border-border dark:border-border disabled:opacity-50"
+                >
+                  {isExporting ? <Loader className="animate-spin" size={14} /> : <Download size={14} />}
+                  {isExporting ? 'Exporting…' : 'Export PDF'}
                 </button>
               </div>
             )}
