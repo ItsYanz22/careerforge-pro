@@ -302,7 +302,7 @@ This project is being developed as part of an AI-first SaaS internship project f
 ### Priyanshu Sahoo
 
 B.Tech CSE (Cybersecurity)
-National Forensic Sciences University
+National Forensic Sciences University, Tripura
 
 ---
 
