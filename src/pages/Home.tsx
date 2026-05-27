@@ -1,8 +1,9 @@
 import { useNavigate } from '@tanstack/react-router'
 import { useAuthStore } from '../stores/authStore'
+import Particles from '../components/ui/Particles'
 import {
   ArrowRight, Zap, Shield, Sparkles, Check, Star,
-  FileText, Target, Brain, TrendingUp, Users, Award,
+  FileText, Target, Brain, TrendingUp, Award,
   ChevronRight, Play
 } from 'lucide-react'
 import { motion } from 'framer-motion'
@@ -105,7 +106,22 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <section className="relative pt-16 pb-28 px-4 overflow-hidden">
+      <section className="relative pt-16 pb-28 px-4 overflow-hidden min-h-screen isolate">
+        {/* Particles background */}
+        <div className="absolute inset-0 -z-20 opacity-90 dark:opacity-70 overflow-hidden">
+          <Particles
+            particleCount={180}
+            particleSpread={20}
+            speed={0.06}
+            particleBaseSize={320}
+            alphaParticles={true}
+            disableRotation={false}
+            useThemeColor={true}
+            moveParticlesOnHover={true}
+            particleHoverFactor={0.8}
+          />
+        </div>
+
         {/* Gradient blobs — landing page only */}
         <div
           aria-hidden
@@ -373,7 +389,7 @@ export default function Home() {
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
-            className="grid md:grid-cols-3 gap-5 items-stretch"
+            className="grid md:grid-cols-3 gap-5 items-stretch pt-8 md:pt-12 pb-8 md:pb-12"
           >
             {/* Free */}
             <motion.div

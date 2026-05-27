@@ -5,6 +5,7 @@ import { useAuthStore } from '../stores/authStore'
 import Sidebar from '../components/dashboard/Sidebar'
 import TopBar from '../components/dashboard/TopBar'
 import PageTransition from '../components/ui/PageTransition'
+import Particles from '../components/ui/Particles'
 
 export default function DashboardLayout() {
   const { isAuthenticated, fetchMe, token } = useAuthStore()
@@ -33,9 +34,23 @@ export default function DashboardLayout() {
   return (
     <div className="flex h-screen bg-background text-foreground selection:bg-primary/15 selection:text-foreground transition-colors duration-300">
       <Sidebar />
-      <div className="flex-1 flex flex-col overflow-hidden relative">
+      <div className="flex-1 flex flex-col overflow-hidden relative isolate">
+        {/* Fixed Particles background for the content area */}
+        <div className="absolute inset-0 -z-20 opacity-50 dark:opacity-35 pointer-events-none overflow-hidden">
+          <Particles
+            particleCount={80}
+            particleSpread={15}
+            speed={0.03}
+            particleBaseSize={220}
+            alphaParticles={true}
+            disableRotation={false}
+            useThemeColor={true}
+            moveParticlesOnHover={true}
+            particleHoverFactor={0.5}
+          />
+        </div>
         <TopBar />
-        <main className="flex-1 overflow-auto bg-background">
+        <main className="flex-1 overflow-auto bg-transparent">
           <AnimatePresence mode="wait">
             <PageTransition key={location.pathname}>
               <Suspense fallback={

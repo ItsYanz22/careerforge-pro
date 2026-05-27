@@ -25,6 +25,53 @@ const FAQ_ITEMS = [
   { q: 'Can I cancel anytime?', a: 'Absolutely — cancel with no penalties. Access continues until the end of your billing period.' },
 ];
 
+const DEFAULT_PLANS: Plan[] = [
+  {
+    id: 'free',
+    name: 'Free',
+    price: 0,
+    interval: 'mo',
+    features: [
+      '1 Resume',
+      'Basic templates',
+      'PDF export',
+      'ATS score check',
+      '5 AI rewrites/month',
+    ],
+  },
+  {
+    id: 'pro',
+    name: 'Pro',
+    price: 15,
+    interval: 'mo',
+    popular: true,
+    features: [
+      'Unlimited resumes',
+      'All 12+ premium templates',
+      'Unlimited AI rewrites',
+      'Advanced ATS engine',
+      'Job matching & tailoring',
+      'DOCX export',
+      'Version history',
+      'Cover letter generator',
+    ],
+  },
+  {
+    id: 'enterprise',
+    name: 'Enterprise',
+    price: 99,
+    interval: 'mo',
+    features: [
+      'Everything in Pro',
+      'Unlimited team seats',
+      'Advanced ATS analytics',
+      'Priority support',
+      'Custom branding',
+      'SSO & admin controls',
+    ],
+  },
+];
+
 export const SubscriptionPage = () => {
   const navigate = useNavigate();
   const { user, fetchMe } = useAuthStore();
@@ -48,7 +95,8 @@ export const SubscriptionPage = () => {
       setSubscription({ plan: sub.plan, status: sub.status, features: sub.features as any, startDate: sub.startDate, endDate: sub.endDate });
     } catch (err: any) {
       console.error('[subscription] loadData error:', err);
-      // Fallback: use default free plan
+      // Fallback: use default free plan and default plans
+      setPlans(DEFAULT_PLANS);
       setCurrentSub({
         plan: 'free',
         status: 'active',
@@ -146,7 +194,7 @@ export const SubscriptionPage = () => {
         </motion.div>
 
         {/* Plan Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6 mb-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6 mb-16 items-center pt-10 pb-10">
           {plans.map((plan, i) => {
             const isCurrent = plan.id === currentPlan;
             const isPro = plan.id === 'pro';
@@ -160,7 +208,7 @@ export const SubscriptionPage = () => {
                 transition={{ delay: i * 0.08, duration: 0.2 }}
                 className={`relative rounded-2xl p-7 flex flex-col transition-colors ${
                   isPro
-                    ? 'text-white lg:scale-105 lg:-my-2 z-10'
+                    ? 'text-white lg:scale-105 lg:-my-2 z-10 pt-14'
                     : 'bg-card border-border text-foreground'
                 }`}
                 style={isPro ? {
