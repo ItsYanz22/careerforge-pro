@@ -11,6 +11,10 @@ export const authApi = {
     return apiClient.post(API_ENDPOINTS.auth.register, { name, email, password });
   },
 
+  loginWithGoogle: (accessToken: string): Promise<AuthResponse> => {
+    return apiClient.post(API_ENDPOINTS.auth.google, { accessToken });
+  },
+
   logout: (): Promise<void> => {
     return apiClient.post(API_ENDPOINTS.auth.logout);
   },

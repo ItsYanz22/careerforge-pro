@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider } from '@tanstack/react-router'
 import { Toaster } from 'react-hot-toast'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 import { router } from './router'
 import './styles/globals.css'
 
@@ -28,9 +29,11 @@ try {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <RouterProvider router={router} />
-      <Toaster position="top-right" />
-    </ThemeProvider>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID_HERE'}>
+      <ThemeProvider>
+        <RouterProvider router={router} />
+        <Toaster position="top-right" />
+      </ThemeProvider>
+    </GoogleOAuthProvider>
   </React.StrictMode>,
 )
